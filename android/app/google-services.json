@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "29493572137",
+    "project_id": "atlasfitness-806b2",
+    "storage_bucket": "atlasfitness-806b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29493572137:android:6932ff7e95dd2ad7596238",
+        "android_client_info": {
+          "package_name": "com.example.atlas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX4zi7Tep5GFyxV2YH2yiFlGhee7xSFUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
