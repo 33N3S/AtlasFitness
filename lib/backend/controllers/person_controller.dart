@@ -16,6 +16,13 @@ class FirestoreService {
     }
   }
 
+  Future<void> updatePerson(Map<String, dynamic> data) async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await _db.collection('users').doc(user.uid).update(data);
+    }
+  }
+
   Future<Person?> getPerson() async {
     var user = FirebaseAuth.instance.currentUser;
     if (user != null) {

@@ -134,6 +134,8 @@ void _scrollToPrevTile(){
     duration: Duration(milliseconds: 400), 
     curve: Curves.easeInOut);
 
+    
+
 }
 
 //register the user in the database

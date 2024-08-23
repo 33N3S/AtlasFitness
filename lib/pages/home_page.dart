@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAlias,
                   height: 280,
                   
-                  margin: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.only(right: 20,left: 20,bottom: 20,top: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
