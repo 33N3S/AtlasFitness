@@ -21,7 +21,7 @@ const TrackingPage({ Key? key }) : super(key: key);
             children: [
             const SizedBox(height: 20),
             const HomePageTitle(text: "Tip of the day"),
-            MyDailyTipContainer(),
+            const MyDailyTipContainer(),
             const SizedBox(height: 20),
             const HomePageTitle(text: "Quick Actions"),
             QuickActionsTable(),  

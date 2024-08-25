@@ -1,3 +1,4 @@
+import 'package:atlas_fitness/backend/model/daily_tip_base.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,8 +21,8 @@ class _MyDailyTipContainerState extends State<MyDailyTipContainer> {
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
       alignment: Alignment.center,
-      child: const Text("Always remember to stay hydrated ❤",
-      style: TextStyle(
+      child:  Text(DailyTipBase.getRandomTip(),
+      style: const TextStyle(
         fontSize: 15,
       ),),
     );

@@ -61,6 +61,8 @@ class _CustomMealPageState extends State<CustomMealPage> {
             ),
 
             CustomMealAdder(mealNameController: nameController),
+
+            const SizedBox(height: 30)
           ],
         ),
       ))

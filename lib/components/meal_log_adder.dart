@@ -118,6 +118,7 @@ class _MealLogAdderState extends State<MealLogAdder> {
                       obscureText: false,
                       enabled: true,
                       onChanged: (value) => checkButtonStatus(),
+                      unit: "grams",
                     ),
                   ],
                 ),

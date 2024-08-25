@@ -65,6 +65,105 @@ class FirestoreService {
   }
 
 
+  Future<void> saveMeal(Meal meal) async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var doc = await _db.collection('users').doc(user.uid).get();
+      if (doc.exists) {
+        var person = Person.fromDocumentSnapshot(doc);
+
+        // Check if a meal with the same name already exists
+        var existingMealIndex = person.savedMeals.indexWhere((m) => m.name == meal.name);
+        if (existingMealIndex != -1) {
+          // Replace the existing meal with the new one
+          person.savedMeals[existingMealIndex] = meal;
+        } else {
+          // Add the new meal to the custom meals list
+          person.savedMeals.add(meal);
+        }
+
+        // Save the updated person data
+        await savePerson(person);
+      }
+    }
+  }
+
+
+  Future<void> unsaveMeal(Meal meal) async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var doc = await _db.collection('users').doc(user.uid).get();
+      if (doc.exists) {
+        var person = Person.fromDocumentSnapshot(doc);
+
+        // Check if the meal exists in the savedMeals list
+        var savedMealIndex = person.savedMeals.indexWhere((m) => m.name == meal.name);
+        if (savedMealIndex != -1) {
+          person.savedMeals.removeAt(savedMealIndex);
+        } else {
+          // If not found in savedMeals, check the customMeals list
+          var customMealIndex = person.customMeals.indexWhere((m) => m.name == meal.name);
+          if (customMealIndex != -1) {
+            person.customMeals.removeAt(customMealIndex);
+          }
+        }
+
+        // Save the updated person data
+        await savePerson(person);
+      }
+    }
+  }
+
+
+  Future<void> saveWorkout(Workout workout) async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var doc = await _db.collection('users').doc(user.uid).get();
+      if (doc.exists) {
+        var person = Person.fromDocumentSnapshot(doc);
+
+        // Check if a meal with the same name already exists
+        var existingIndex = person.savedWorkouts.indexWhere((w) => w.name == workout.name);
+        if (existingIndex != -1) {
+          // Replace the existing meal with the new one
+          person.savedWorkouts[existingIndex] = workout;
+        } else {
+          // Add the new meal to the custom meals list
+          person.savedWorkouts.add(workout);
+        }
+        // Save the updated person data
+        await savePerson(person);
+      }
+    }
+  }
+
+  
+  Future<void> unsaveWorkout(Workout workout) async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var doc = await _db.collection('users').doc(user.uid).get();
+      if (doc.exists) {
+        var person = Person.fromDocumentSnapshot(doc);
+
+        // Check if the workout exists in the savedWorkouts list
+        var savedWorkoutIndex = person.savedWorkouts.indexWhere((w) => w.name == workout.name);
+        if (savedWorkoutIndex != -1) {
+          person.savedWorkouts.removeAt(savedWorkoutIndex);
+        } else {
+          // If not found in savedWorkouts, check the customWorkouts list
+          var customWorkoutIndex = person.customWorkouts.indexWhere((w) => w.name == workout.name);
+          if (customWorkoutIndex != -1) {
+            person.customWorkouts.removeAt(customWorkoutIndex);
+          }
+        }
+
+        // Save the updated person data
+        await savePerson(person);
+      }
+    }
+  }
+
+
   Future<void> insertCustomWorkout(Workout workout) async {
     var user = FirebaseAuth.instance.currentUser;
     if (user != null) {

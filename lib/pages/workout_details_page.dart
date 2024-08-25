@@ -18,6 +18,13 @@ class WorkoutDetails extends StatefulWidget {
 class _WorkoutDetailsState extends State<WorkoutDetails> {
 
   bool _isWaiting = false;
+  late bool _isSaved = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isWorkoutSaved();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -184,13 +191,14 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
                   children: [
                     Expanded(child: MyEnabledButton(text: "Mark as Done", onTap: () { workoutLog();}, enabled: true,waiting: _isWaiting)),
                     Padding(
-                      padding: const EdgeInsets.only(right: 25),
-                      child: IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.bookmark, size: 45,),),
+                      padding: const EdgeInsets.only(right:15),
+                      child: IconButton(onPressed: (){ _isSaved? unsaveWorkout() : saveWorkout();}, 
+                      icon: Icon( _isSaved ?  CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark ,size: 45, color: Theme.of(context).colorScheme.primary,),),
                     )
-                  ],
+                    ]
                 ),
                 const SizedBox(height: 20),
-                MyFooterIllustrated()
+                const MyFooterIllustrated()
               ],
             ),
           ),
@@ -199,12 +207,12 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
           child: Opacity(
             opacity: 0.7,
             child: Container(
-                margin: EdgeInsets.all(15),
+                margin: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surfaceContainer,
                     shape: BoxShape.circle),
                 child: IconButton(
-                    icon: Icon(Icons.arrow_back_ios_rounded),
+                    icon: const Icon(Icons.arrow_back_ios_rounded),
                     onPressed: () => Navigator.pop(context))
             ),
           ),
@@ -212,6 +220,70 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
       ],
     );
   }
+
+
+  Future<void> saveWorkout() async {
+    await FirestoreService().saveWorkout(widget.workout);
+    await isWorkoutSaved();
+    
+    setState(() {
+      _isSaved = true;
+    });
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Workout saved successfully!',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+
+  Future<void> unsaveWorkout() async{
+    await FirestoreService().unsaveWorkout(widget.workout);
+    await isWorkoutSaved();
+
+    setState(() {
+    _isSaved = false;
+    });
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        'Workout removed from collection',
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      duration: const Duration(seconds: 2),
+    ),
+  );
+
+  }
+
+  Future<void> isWorkoutSaved() async{
+    var user = await FirestoreService().getPerson();
+
+    var existingIndex = user?.savedWorkouts.indexWhere((m) => m.name == widget.workout.name);
+
+      if(existingIndex != -1){
+        setState(() {
+          _isSaved = true;
+        });
+      }else{
+        setState(() {
+          _isSaved = false;
+        });
+      } 
+  }
+
 
   void workoutLog() async{
 
@@ -224,6 +296,19 @@ class _WorkoutDetailsState extends State<WorkoutDetails> {
     setState(() {
       _isWaiting = false;
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        'Workout Marked as Done !',
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      duration: const Duration(seconds: 2),
+    ),
+  );
 
 
   }

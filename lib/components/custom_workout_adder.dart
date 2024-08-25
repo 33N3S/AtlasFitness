@@ -1,16 +1,10 @@
 import 'package:atlas_fitness/backend/controllers/person_controller.dart';
 import 'package:atlas_fitness/backend/model/exercice.dart';
-import 'package:atlas_fitness/backend/model/food.dart';
-import 'package:atlas_fitness/backend/model/food_base.dart';
 import 'package:atlas_fitness/backend/model/goals_enum.dart';
-import 'package:atlas_fitness/backend/model/meal.dart';
-import 'package:atlas_fitness/backend/model/meal_categories_enum.dart';
-import 'package:atlas_fitness/backend/model/nutrients.dart';
 import 'package:atlas_fitness/backend/model/workout.dart';
 import 'package:atlas_fitness/backend/model/workout_base.dart';
 import 'package:atlas_fitness/components/my_enablable_button.dart';
 import 'package:atlas_fitness/components/my_exercice_selector.dart';
-import 'package:atlas_fitness/components/my_food_selector.dart';
 import 'package:atlas_fitness/components/my_quantity_text_filed.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +12,6 @@ import 'package:flutter/material.dart';
 class CustomWorkoutAdder extends StatefulWidget {
 
   final TextEditingController mealNameController;
-
 
   const CustomWorkoutAdder({Key? key, required this.mealNameController, }) : super(key: key);
 
@@ -79,7 +72,6 @@ class _CustomWorkoutAdderState extends State<CustomWorkoutAdder> {
       margin: const EdgeInsets.symmetric(horizontal: 25),
       child: Column(
         children: [
-
             Center(
               child: SizedBox(
                 height: 50, // Set a fixed height for the ListView
@@ -174,6 +166,7 @@ class _CustomWorkoutAdderState extends State<CustomWorkoutAdder> {
                       obscureText: false,
                       enabled: true,
                       onChanged: (value) => checkButtonStatus(),
+                      unit: "seconds",
                     ),
                   ],
                 ),
@@ -203,17 +196,17 @@ class _CustomWorkoutAdderState extends State<CustomWorkoutAdder> {
 
     List<Exercice> selectedExercices = [];
 
-    for (var exercice in WorkoutBase.selectedExercices) {
+    for (var exercice in WorkoutBase.selectedCustomExercices) {
       exercice.duration = double.parse(exerciceControllers[exercice]!.text);
       selectedExercices.add(exercice);
     }
 
     Workout workout = Workout(
       type: ExerciceType.Balance, 
-      name: '', 
+      name: widget.mealNameController.text, 
       exercices: selectedExercices, 
       tag: FitGoals.gainMuscle, 
-      imagePath: '');
+      imagePath: 'cutom_workout_image.jfif');
 
 
     WorkoutBase.selectedCustomExercices.clear();
@@ -259,7 +252,6 @@ class _CustomWorkoutAdderState extends State<CustomWorkoutAdder> {
   }
 
   Future<void> _insertCustomWorkout(Workout workout) async {
-    // Save the updated daily intake
     await FirestoreService().insertCustomWorkout(workout);
   }
 }

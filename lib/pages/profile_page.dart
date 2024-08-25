@@ -88,6 +88,19 @@ Future<void> _updateUser(Person user) async {
     setState(() {
       userFuture  = _getCurrentUser();
     });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        'Profile successfully updated!',
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      duration: Duration(seconds: 2),
+    ),
+  );
     
 
   } on FirebaseAuthException catch (e) {
@@ -272,7 +285,7 @@ Future<void> _updateUser(Person user) async {
                                   enabled: true, 
                                   valueController: weightController,
                                   options: weightUnits,
-                                  placeholder: user.age.toString(),)
+                                  placeholder: user.weight.toString(),)
                               
                               : _buildInfoRow("Weight", "${user.weight} kg"),
                           isEditMode?
@@ -312,10 +325,7 @@ Future<void> _updateUser(Person user) async {
                           _buildInfoRow("Fats", "${user.dailyNeeds.fats.toStringAsFixed(2)} g"),
                       ],),
                     ),
-                     const SizedBox(height: 40),
-                    // _buildCustomButton("View Saved Meals", Icons.restaurant_menu),
-                    // const SizedBox(height: 20),
-                    // _buildCustomButton("View Saved Workouts", Icons.fitness_center),
+                     const SizedBox(height: 30),
                   ],
                 ),
               ),
@@ -353,25 +363,4 @@ Future<void> _updateUser(Person user) async {
     );
   }
 
-  Widget _buildCustomButton(String text, IconData icon) {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      onPressed: () {},
-      icon: Icon(icon),
-      label: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
 }

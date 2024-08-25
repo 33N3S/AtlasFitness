@@ -118,6 +118,7 @@ class _WorkoutLogAdderState extends State<WorkoutLogAdder> {
                       obscureText: false,
                       enabled: true,
                       onChanged: (value) => checkButtonStatus(),
+                      unit: "seconds",
                     ),
                   ],
                 ),

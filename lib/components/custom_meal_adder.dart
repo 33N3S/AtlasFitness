@@ -170,6 +170,7 @@ class _CustomMealAdderState extends State<CustomMealAdder> {
                       obscureText: false,
                       enabled: true,
                       onChanged: (value) => checkButtonStatus(),
+                      unit: "grams",
                     ),
                   ],
                 ),

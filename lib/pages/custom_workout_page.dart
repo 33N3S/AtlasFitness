@@ -61,6 +61,8 @@ class _CustomWorkoutPageState extends State<CustomWorkoutPage> {
             ),
 
             CustomWorkoutAdder(mealNameController: nameController),
+
+            const SizedBox(height: 20)
           ],
         ),
       ))
