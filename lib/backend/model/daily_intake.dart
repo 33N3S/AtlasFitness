@@ -16,10 +16,10 @@ class DailyIntake {
     };
   }
 
-  factory DailyIntake.fromDocumentSnapshot(Map<String, dynamic> data) {
+  factory DailyIntake.fromDocumentSnapshot(Map<String, dynamic>? data) {
     return DailyIntake(
-      nutrients: Nutrients.fromMap(data['nutrients']),
-      date: DateTime.parse(data['date']),
+      nutrients: Nutrients.fromMap(data?['nutrients']),
+      date: DateTime.parse(data?['date']),
     );
   }
 

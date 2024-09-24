@@ -1,4 +1,5 @@
 import 'package:atlas_fitness/pages/collection_page.dart';
+import 'package:atlas_fitness/pages/history_page.dart';
 import 'package:atlas_fitness/pages/home_page.dart';
 import 'package:atlas_fitness/pages/profile_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +26,7 @@ class _BottomBarState extends State<BottomBar> {
             IconButton(icon: Icon(CupertinoIcons.house_fill, size: 30, color: Theme.of(context).colorScheme.surface), onPressed: () { Navigator.push(context,MaterialPageRoute(builder: (context)=>const HomePage())); }),
             IconButton(icon: Icon(CupertinoIcons.person_fill, size: 30, color: Theme.of(context).colorScheme.surface), onPressed: () { Navigator.push(context,MaterialPageRoute(builder: (context)=>const ProfilePage())); }),
             const SizedBox(width: 40), // Space for the FAB
-            Icon(CupertinoIcons.time_solid, size: 30, color: Theme.of(context).colorScheme.surface),
+            IconButton(icon: Icon(CupertinoIcons.time_solid, size: 30, color: Theme.of(context).colorScheme.surface), onPressed: () { Navigator.push(context,MaterialPageRoute(builder: (context)=>const HistoryPage())); }),
             IconButton(icon: Icon(CupertinoIcons.collections_solid, size: 30, color: Theme.of(context).colorScheme.surface), onPressed: () {Navigator.push(context,MaterialPageRoute(builder: (context)=>const CollectionPage())); }),
           ],
         ),

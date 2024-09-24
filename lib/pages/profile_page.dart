@@ -2,11 +2,14 @@ import 'package:atlas_fitness/backend/controllers/person_controller.dart';
 import 'package:atlas_fitness/backend/model/goals_enum.dart';
 import 'package:atlas_fitness/backend/model/person.dart';
 import 'package:atlas_fitness/components/bottom_bar.dart';
+import 'package:atlas_fitness/components/my_enablable_button.dart';
 import 'package:atlas_fitness/components/my_fab.dart';
+import 'package:atlas_fitness/components/my_logout_button.dart';
 import 'package:atlas_fitness/components/profile_option_field.dart';
 import 'package:atlas_fitness/components/profile_text_field.dart';
 import 'package:atlas_fitness/components/profile_toggle.dart';
 import 'package:atlas_fitness/helpers/displayDialogMessage.dart';
+import 'package:atlas_fitness/pages/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -102,7 +105,6 @@ Future<void> _updateUser(Person user) async {
     ),
   );
     
-
   } on FirebaseAuthException catch (e) {
     Navigator.pop(context);
     displayDialogMessage(e.code, context);
@@ -325,7 +327,20 @@ Future<void> _updateUser(Person user) async {
                           _buildInfoRow("Fats", "${user.dailyNeeds.fats.toStringAsFixed(2)} g"),
                       ],),
                     ),
-                     const SizedBox(height: 30),
+                     const SizedBox(height: 20),
+                     Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 80),
+                       child: MyLogoutButton(
+                        text: "Logout", 
+                        onTap: (){
+                          logout();
+                        },
+                        enabled: true, 
+                        waiting: false),
+                     ),
+                        
+                     const SizedBox(height: 40),
+
                   ],
                 ),
               ),
@@ -361,6 +376,15 @@ Future<void> _updateUser(Person user) async {
         ],
       ),
     );
+  }
+
+  Future<void> logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const WelcomePage())); // Adjust this to your login route
+    } catch (e) {
+      displayDialogMessage("Logout failed: $e", context);
+    }
   }
 
 }

@@ -222,7 +222,6 @@ Future<void> _deleteWorkout(Workout workout) async {
   }
   }
 
-
   Future<void> _deleteMeal(Meal meal) async {
   showDialog(
     context: context,

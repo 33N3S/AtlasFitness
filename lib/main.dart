@@ -7,6 +7,7 @@ import 'package:atlas_fitness/backend/model/meal_base.dart';
 import 'package:atlas_fitness/backend/model/workout.dart';
 import 'package:atlas_fitness/backend/model/workout_base.dart';
 import 'package:atlas_fitness/firebase_options.dart';
+import 'package:atlas_fitness/pages/auth.dart';
 import 'package:atlas_fitness/pages/welcome_page.dart';
 import 'package:atlas_fitness/themes/dark_theme.dart';
 import 'package:atlas_fitness/themes/light_theme.dart';
@@ -66,7 +67,7 @@ class MainApp extends StatelessWidget {
       theme: lightMode,  // Apply the light theme
       darkTheme: darkMode,  // Apply the dark theme
       themeMode: ThemeMode.system,  
-      home: WelcomePage(),
+      home: const Auth(),
     );
   }
 }

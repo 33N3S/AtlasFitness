@@ -375,7 +375,13 @@ Future<void> _registerUser() async {
                       MyRegisterTextField(controller: mailController, hintText: "Email", obscureText: false,enabled: goalsDone&& !mailPwDone,isNumeric: false,),
             
                       Text("Pick a trusty password", style: TextStyle(color:Theme.of(context).colorScheme.surface),),
-                      MyRegisterTextField(controller: passwordController, hintText: "Password", obscureText: true,enabled: goalsDone&& !mailPwDone,isNumeric: false,),
+                      Column(
+                        children: [
+                          MyRegisterTextField(controller: passwordController, hintText: "Password", obscureText: true,enabled: goalsDone&& !mailPwDone,isNumeric: false,),
+                          Text("Must contain a capital, a digit and at least 8 characters",style: TextStyle(fontSize: 11,color: Theme.of(context).colorScheme.surface),)
+
+                        ],
+                      ),
             
                         Padding(
                           padding: const EdgeInsets.only(top:12),

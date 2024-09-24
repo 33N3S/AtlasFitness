@@ -29,4 +29,6 @@ class Nutrients {
     };
   }
 
+  double get totalCalories => (protein * 4) + (carbs * 4) + (fats * 9);
+
 }

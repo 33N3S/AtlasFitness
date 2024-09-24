@@ -17,6 +17,7 @@ class Person {
   FitGoals fitGoal;
   late Nutrients dailyNeeds;
   List<DailyIntake> dailyIntake;
+  List<DailyIntake> dailyBurnedCalories;
   List<Meal> savedMeals;
   List<Meal> customMeals;
   List<Workout> savedWorkouts;
@@ -34,6 +35,7 @@ class Person {
     required this.fitGoal,
     this.dailyCalNeed = 0.0,
     this.tarGetCalNeed = 0.0,
+    this.dailyBurnedCalories = const [],
     this.dailyIntake = const [],
     this.savedMeals = const [],
     this.savedWorkouts = const [],
@@ -121,7 +123,7 @@ class Person {
       'customMeals': customMeals.map((meal) => meal.toMap()).toList(),
       'savedWorkouts': savedWorkouts.map((workout) => workout.toMap()).toList(),
       'customWorkouts': customWorkouts.map((workout) => workout.toMap()).toList(),
-
+      'dailyBurnedCalories': dailyBurnedCalories.map((dbc)=>dbc.toMap()).toList()
     };
   }
 
@@ -137,6 +139,9 @@ class Person {
       fitGoal: FitGoals.values.firstWhere((e) => e.toString() == 'FitGoals.' + data['fitGoal']),
       dailyIntake: (data['dailyIntake'] as List<dynamic>)
           .map((di) => DailyIntake.fromDocumentSnapshot(di))
+          .toList(),
+      dailyBurnedCalories: (data['dailyBurnedCalories'] as List<dynamic>)
+          .map((dbc) => DailyIntake.fromDocumentSnapshot(dbc))
           .toList(),
       savedMeals: (data['savedMeals'] as List<dynamic>)
           .map((meal) => Meal.fromMap(meal))

@@ -209,7 +209,7 @@ class _CustomMealAdderState extends State<CustomMealAdder> {
     Meal customMeal = Meal(
       name: widget.mealNameController.text,
       tag: FitGoals.loseWeight,
-      imagePath: '',
+      imagePath: 'custom_meal_image.jfif',
       recipe: '',
       category: MealCategoriesEnumExtension.fromString(selectedCategory),
       ingredientNames: selectedNames,
